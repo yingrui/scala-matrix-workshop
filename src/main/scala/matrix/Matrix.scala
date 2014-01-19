@@ -10,13 +10,13 @@ trait Matrix {
 
 object Matrix {
 
-  def apply(row: Int, col: Int): Matrix = new DenseMatrix
+  def apply(row: Int, col: Int): Matrix = new DenseMatrix(row, col, new Array[Double](row * col))
 
 }
 
-class DenseMatrix extends Matrix {
+class DenseMatrix(val row: Int, val col: Int, elements: Array[Double]) extends Matrix {
 
-  def apply(i: Int, j: Int): Double = ???
+  def apply(i: Int, j: Int): Double = elements(i * col + j)
 
-  def update(i: Int, j: Int, value: Double): Unit = ???
+  def update(i: Int, j: Int, value: Double): Unit = elements(i * col + j) = value
 }
