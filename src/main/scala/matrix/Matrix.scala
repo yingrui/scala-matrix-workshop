@@ -29,7 +29,7 @@ trait Matrix {
 
   def *(n: Matrix): Double = (for (j <- 0 until col) yield this(0, j) * n(0, j)).sum
 
-  def x(n: Matrix): Matrix = ???
+  def x(n: Matrix): Matrix = Matrix(row, n.col, for(i <- 0 until row; j <- 0 until n.col) yield row(i) * n.col(j))
 
   def ==(other: Matrix): Boolean = {
     val value = for (i <- 0 until row; j <- 0 until col) yield Math.abs(apply(i, j) - other(i, j))
