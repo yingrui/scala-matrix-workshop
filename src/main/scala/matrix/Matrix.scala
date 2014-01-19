@@ -33,8 +33,8 @@ class DenseMatrix(val row: Int, val col: Int, elements: Array[Double]) extends M
 
   def update(i: Int, j: Int, value: Double): Unit = elements(i * col + j) = value
 
-  def +(n: Double): Matrix = ???
+  def +(n: Double): Matrix = Matrix(row, col, elements.map(_ + n))
 
-  def -(n: Double): Matrix = ???
+  def -(n: Double): Matrix = this + -n
 
 }
