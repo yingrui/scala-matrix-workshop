@@ -5,6 +5,10 @@ trait Matrix {
   val row: Int
   val col: Int
 
+  def row(i: Int): Matrix = ???
+
+  def col(i: Int): Matrix = ???
+
   def apply(i: Int, j: Int): Double
 
   def update(i: Int, j: Int, value: Double)
@@ -24,6 +28,8 @@ trait Matrix {
 }
 
 object Matrix {
+
+  def apply(elements: Double*): Matrix = new DenseMatrix(1, elements.length, elements.toArray)
 
   def apply(row: Int, col: Int): Matrix = new DenseMatrix(row, col, new Array[Double](row * col))
 

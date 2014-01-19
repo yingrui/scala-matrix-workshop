@@ -39,4 +39,16 @@ class MatrixSuite extends FunSuite with Checkers {
       m == n / num
     })
   }
+
+  test("should return row as matrix") {
+    val m = Matrix(2, 2, Array(1.0, 2.0, 3.0, 4.0))
+    assert(Matrix(1.0, 2.0) == m.row(0))
+    assert(Matrix(3.0, 4.0) == m.row(1))
+  }
+
+  test("should return column as matrix") {
+    val m = Matrix(2, 2, Array(1.0, 2.0, 3.0, 4.0))
+    assert(Matrix(1.0, 3.0) == m.col(0))
+    assert(Matrix(2.0, 4.0) == m.col(1))
+  }
 }
