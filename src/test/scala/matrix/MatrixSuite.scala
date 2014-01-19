@@ -32,4 +32,11 @@ class MatrixSuite extends FunSuite with Checkers {
       m == n - num
     })
   }
+
+  test("should support multiple/divide operator") {
+    check(forAll(matrixGen, Gen.choose(0.01, 100.0)) { (m, num) =>
+      val n = m x num
+      m == n / num
+    })
+  }
 }
