@@ -59,7 +59,7 @@ object Matrix {
 
 }
 
-class DenseMatrix(val row: Int, val col: Int, elements: Array[Double]) extends Matrix {
+private class DenseMatrix(val row: Int, val col: Int, elements: Array[Double]) extends Matrix {
 
   def apply(i: Int, j: Int): Double = elements(i * col + j)
 
