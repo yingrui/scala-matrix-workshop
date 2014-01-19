@@ -5,9 +5,10 @@ trait Matrix {
   val row: Int
   val col: Int
 
-  def row(i: Int): Matrix = ???
+  import Matrix.seqToArray
+  def row(i: Int): Matrix = Matrix(for(j <- 0 until col) yield apply(i, j))
 
-  def col(i: Int): Matrix = ???
+  def col(j: Int): Matrix = Matrix(for(i <- 0 until row) yield apply(i, j))
 
   def apply(i: Int, j: Int): Double
 
@@ -29,7 +30,11 @@ trait Matrix {
 
 object Matrix {
 
-  def apply(elements: Double*): Matrix = new DenseMatrix(1, elements.length, elements.toArray)
+  implicit def seqToArray(seq: Seq[Double]):Array[Double] = seq.toArray
+
+  def apply(elements: Double*): Matrix = new DenseMatrix(1, elements.length, elements)
+
+  def apply(elements: Array[Double]): Matrix = new DenseMatrix(1, elements.length, elements)
 
   def apply(row: Int, col: Int): Matrix = new DenseMatrix(row, col, new Array[Double](row * col))
 
