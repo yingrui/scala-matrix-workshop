@@ -52,6 +52,23 @@ class MatrixSuite extends FunSuite with Checkers {
     })
   }
 
+  test("should return itself when multiple with E") {
+    check(forAll(matrixGen) { m =>
+      val n = m x Matrix.E(m.col)
+      m == n
+    })
+  }
+
+  test("should get result of multiple with matrix") {
+    val m = Matrix(2, 2, Array(1.0, 2.0, 3.0, 4.0))
+    assert(Matrix(2, 2, Array(7.0, 10.0, 15.0, 22.0)) == (m x m))
+  }
+
+  test("should return result of dot production") {
+    val m = Matrix(3.0, 4.0)
+    assert(5.0 == Math.sqrt(m * m), "3 x 3 + 4 x 4 = 5 x 5")
+  }
+
   test("should return row as matrix") {
     val m = Matrix(2, 2, Array(1.0, 2.0, 3.0, 4.0))
     assert(Matrix(1.0, 2.0) == m.row(0))

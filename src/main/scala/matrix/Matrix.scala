@@ -27,6 +27,10 @@ trait Matrix {
 
   def -(m: Matrix): Matrix = this + (m x -1)
 
+  def *(n: Matrix): Double = (for (j <- 0 until col) yield this(0, j) * n(0, j)).sum
+
+  def x(n: Matrix): Matrix = ???
+
   def ==(other: Matrix): Boolean = {
     val value = for (i <- 0 until row; j <- 0 until col) yield Math.abs(apply(i, j) - other(i, j))
     row == other.row && col == other.col && value.sum < 1E-10
@@ -44,6 +48,14 @@ object Matrix {
   def apply(row: Int, col: Int): Matrix = new DenseMatrix(row, col, new Array[Double](row * col))
 
   def apply(row: Int, col: Int, elements: Array[Double]): Matrix = new DenseMatrix(row, col, elements)
+
+  def E(i: Int) = {
+    val elements = new Array[Double](i * i)
+    for (j <- 0 until i) {
+      elements(j * i + j) = 1.0D
+    }
+    apply(i, i, elements)
+  }
 
 }
 
