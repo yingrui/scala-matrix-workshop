@@ -23,9 +23,9 @@ trait Matrix {
 
   def /(n: Double): Matrix
 
-  def +(m: Matrix): Matrix = ???
+  def +(m: Matrix): Matrix = Matrix(row, col, for (i <- 0 until row; j <- 0 until col) yield this(i, j) + m(i, j))
 
-  def -(m: Matrix): Matrix = ???
+  def -(m: Matrix): Matrix = this + (m x -1)
 
   def ==(other: Matrix): Boolean = {
     val value = for (i <- 0 until row; j <- 0 until col) yield Math.abs(apply(i, j) - other(i, j))
