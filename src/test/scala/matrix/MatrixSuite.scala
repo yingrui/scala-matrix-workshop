@@ -7,7 +7,7 @@ import org.scalacheck._
 
 class MatrixSuite extends FunSuite with Checkers {
 
-  val matrixGen: Gen[Matrix] = {
+  def matrixGen: Gen[Matrix] = {
     val indexGen = for (
       i <- Gen.choose(1, 10);
       j <- Gen.choose(1, 10)
@@ -16,6 +16,11 @@ class MatrixSuite extends FunSuite with Checkers {
       Gen.listOfN(t._1 * t._2, Gen.choose(-100.0, 100.0))
         .map(list => Matrix(t._1, t._2, list.toArray))
     )
+  }
+
+  def matrixGen(row: Int, col: Int): Gen[Matrix] = {
+    Gen.listOfN(row * col, Gen.choose(-100.0, 100.0))
+      .map(list => Matrix(row, col, list.toArray))
   }
 
   test("should update and get element of matrix by index, like m(i, j) = x") {
@@ -30,6 +35,13 @@ class MatrixSuite extends FunSuite with Checkers {
     check(forAll(matrixGen, Gen.choose(-100.0, 100.0)) { (m, num) =>
       val n = m + num
       m == n - num
+    })
+  }
+
+  test("should support +/- operator of matrix") {
+    check(forAll(matrixGen(2, 3), matrixGen(2, 3)) { (m, n) =>
+      val diff = m - n
+      (n + diff) == m
     })
   }
 

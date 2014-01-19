@@ -6,9 +6,10 @@ trait Matrix {
   val col: Int
 
   import Matrix.seqToArray
-  def row(i: Int): Matrix = Matrix(for(j <- 0 until col) yield apply(i, j))
 
-  def col(j: Int): Matrix = Matrix(for(i <- 0 until row) yield apply(i, j))
+  def row(i: Int): Matrix = Matrix(for (j <- 0 until col) yield apply(i, j))
+
+  def col(j: Int): Matrix = Matrix(for (i <- 0 until row) yield apply(i, j))
 
   def apply(i: Int, j: Int): Double
 
@@ -22,7 +23,11 @@ trait Matrix {
 
   def /(n: Double): Matrix
 
-  def == (other: Matrix): Boolean = {
+  def +(m: Matrix): Matrix = ???
+
+  def -(m: Matrix): Matrix = ???
+
+  def ==(other: Matrix): Boolean = {
     val value = for (i <- 0 until row; j <- 0 until col) yield Math.abs(apply(i, j) - other(i, j))
     row == other.row && col == other.col && value.sum < 1E-10
   }
@@ -30,7 +35,7 @@ trait Matrix {
 
 object Matrix {
 
-  implicit def seqToArray(seq: Seq[Double]):Array[Double] = seq.toArray
+  implicit def seqToArray(seq: Seq[Double]): Array[Double] = seq.toArray
 
   def apply(elements: Double*): Matrix = new DenseMatrix(1, elements.length, elements)
 
@@ -55,4 +60,5 @@ class DenseMatrix(val row: Int, val col: Int, elements: Array[Double]) extends M
   def x(n: Double): Matrix = Matrix(row, col, elements.map(_ * n))
 
   def /(n: Double): Matrix = Matrix(row, col, elements.map(_ / n))
+
 }
